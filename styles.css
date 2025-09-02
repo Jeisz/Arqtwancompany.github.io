@@ -1,0 +1,230 @@
+/* Reset de márgenes y paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fuente global */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    margin-top: 0;
+}
+
+/* Colores basados en el logo */
+:root {
+    --primary-color: #0066cc; /* Azul del logo */
+    --secondary-color: #00aaff; /* Azul claro del logo */
+    --dark-bg: #333333; /* Fondo oscuro para texto */
+    --light-bg: #f4f4f4; /* Fondo claro */
+    --text-color: #ffffff; /* Texto blanco */
+}
+
+/* Encabezado con navegación */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    z-index: 100;
+    position: relative;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin-left: 30px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: var(--secondary-color);
+}
+
+/* Imagen de fondo ajustada (sin texto encima) */
+.hero {
+    background-image: url('arqtwan.jpg'); /* Ruta local de la imagen */
+    background-position: center center;
+    background-size: cover; /* Ajusta la imagen para cubrir toda la sección */
+    background-repeat: no-repeat;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 0;
+}
+
+/* Botón "Solicitar Licencia" debajo de la imagen */
+#solicitar-licencia {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#solicitar-licencia .btn {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#solicitar-licencia .btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Servicios */
+#services {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    z-index: 1;
+    position: relative;
+}
+
+#services .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#services h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.service-item {
+    background-color: #f4f4f4;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.service-item h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.service-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Sección Sobre Nosotros con recuadro */
+#about {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#about .container h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#about .container p {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Solicitar licencia */
+#request-form {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    z-index: 1;
+    position: relative;
+}
+
+#request-form form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#request-form input,
+#request-form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#request-form button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#request-form button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Botón WhatsApp flotante */
+.whatsapp-btn {
+    display: inline-block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.whatsapp-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Esto hace que la imagen sea circular */
+    display: block;
+}
+
+/* Contacto */
+#contact {
+    padding: 60px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    z-index: 1;
+    position: relative;
+}
+
+#contact p {
+    font-size: 18px;
+    color: #fff;
+}
+
+/* Pie de página */
+footer {
+    background-color: #333333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
