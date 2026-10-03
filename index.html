@@ -1,100 +1,995 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CO">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arqtwan - Licencia de Construcción</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <title>Arqtwan | Licencias, Arquitectura e Ingeniería</title>
+
+    <meta name="description"
+        content="Arqtwan acompaña proyectos de construcción con gestión de licencias, diseño arquitectónico, diseño estructural, levantamientos y asesoría técnica en Colombia.">
+
+    <meta name="google-site-verification" content="o0HdO8HkEtZiGqGIS2KYd91j7IE8fGOWgMSSIqJjJbg">
+
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#071c27">
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://arqtwan.com/">
+    <link rel="alternate" hreflang="es-CO" href="https://arqtwan.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:locale" content="es_CO">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Arqtwan | Licencias, Arquitectura e Ingeniería">
+    <meta property="og:description"
+        content="Licencias, arquitectura e ingeniería con acompañamiento técnico de principio a fin.">
+    <meta property="og:url" content="https://arqtwan.com/">
+    <meta property="og:site_name" content="Arqtwan">
+    <meta property="og:image" content="https://arqtwan.com/arqtwan.jpg">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Arqtwan | Licencias, Arquitectura e Ingeniería">
+    <meta name="twitter:description"
+        content="Acompañamiento técnico para construir, reformar y desarrollar tu proyecto.">
+    <meta name="twitter:image" content="https://arqtwan.com/arqtwan.jpg">
+
+    <!-- Iconos -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" href="./icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Arqtwan",
+    "url": "https://arqtwan.com/",
+    "logo": "https://arqtwan.com/LogoArqtwan.jpg",
+    "image": "https://arqtwan.com/arqtwan.jpg",
+    "telephone": "+57 304 301 8508",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Colombia"
+    },
+    "description": "Servicios de licencias de construcción, diseño arquitectónico, diseño estructural, levantamientos y asesoría técnica."
+  }
+  </script>
+
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué necesito para iniciar una licencia de construcción?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El punto de partida depende del tipo de inmueble, el alcance del proyecto y la normativa aplicable. Arqtwan revisa cada caso y orienta la documentación necesaria."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Realizan diseños arquitectónicos y estructurales?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Arqtwan desarrolla soluciones arquitectónicas y estructurales de acuerdo con las características y necesidades de cada proyecto."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Atienden proyectos en diferentes ciudades?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. La viabilidad y modalidad de atención se revisan según la ubicación y el alcance de cada proyecto."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
-    <!-- Encabezado con pestañas de navegación -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="#services">Servicios</a></li>
-                <li><a href="#about">Sobre Nosotros</a></li>
-                <li><a href="#request-form">Solicitar Licencia</a></li>
-                <li><a href="#contact">Contáctanos</a></li>
-            </ul>
-        </nav>
+
+    <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+    <header class="site-header" id="site-header">
+
+        <div class="nav-container">
+
+            <a href="#inicio" class="brand" aria-label="Ir al inicio de Arqtwan">
+
+                <img src="./LogoArqtwan.jpg" alt="Logo Arqtwan" class="brand-logo">
+
+                <div class="brand-text">
+                    <span class="brand-name">ARQTWAN</span>
+                    <span class="brand-subtitle">Arquitectura · Ingeniería</span>
+                </div>
+
+            </a>
+
+
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="main-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+
+            <nav class="main-nav" aria-label="Navegación principal">
+
+                <ul class="nav-links" id="main-menu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#proceso">Proceso</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#preguntas">Preguntas</a></li>
+                </ul>
+
+            </nav>
+
+
+            <a href="#contacto" class="nav-cta">
+                Cuéntanos tu proyecto
+            </a>
+
+        </div>
+
     </header>
 
-    <!-- Imagen de fondo ajustada (sin texto encima) -->
-    <section id="home" class="hero"></section>
 
-    <!-- Botón "Solicitar Licencia" debajo de la imagen -->
-    <section id="solicitar-licencia">
-        <div class="container">
-            <a href="#request-form" class="btn">Solicitar Licencia</a>
-        </div>
-    </section>
+    <!-- =====================================================
+       MAIN
+  ====================================================== -->
 
-    <!-- Sección de servicios -->
-    <section id="services">
-        <div class="container">
-            <h2>Servicios</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <h3>Licencia de Construcción</h3>
-                    <p>Gestionamos todo el proceso para que obtengas tu licencia de construcción de manera rápida y efectiva.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Asesoría Legal</h3>
-                    <p>Te ofrecemos asesoría legal en todos los aspectos relacionados con la construcción y permisos urbanos.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Estudios de Impacto Ambiental</h3>
-                    <p>Realizamos estudios para evaluar el impacto ambiental de tu proyecto y garantizar el cumplimiento normativo.</p>
-                </div>
+    <main>
+
+
+        <!-- ===================================================
+         HERO CON VIDEO
+    ==================================================== -->
+
+        <section class="hero" id="inicio">
+
+            <div class="hero-media" aria-hidden="true">
+
+                <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="./arqtwan.jpg">
+                    <source src="./img1.mp4" type="video/mp4">
+                </video>
+
             </div>
-        </div>
-    </section>
 
-    <!-- Sección sobre nosotros con recuadro -->
-    <section id="about">
-        <div class="container">
-            <h2>Sobre Nosotros</h2>
-            <p>En Arqtwan, somos un equipo profesional con más de 10 años de experiencia en la gestión de licencias de construcción. Nuestra misión es asegurar que tu proyecto cumpla con todas las normativas legales y ambientales.</p>
-        </div>
-    </section>
 
-    <!-- Sección de solicitar licencia -->
-    <section id="request-form">
-        <div class="container">
-            <h2>Formulario de Solicitud de Licencia</h2>
-            <form id="form-tramite">
-                <input type="text" name="name" placeholder="Nombre Completo" required>
-                <input type="email" name="email" placeholder="Correo Electrónico" required>
-                <input type="tel" name="phone" placeholder="Número de Teléfono" required>
-                <textarea name="message" placeholder="Descripción del Proyecto" required></textarea>
-                <button type="submit" class="btn">Enviar Solicitud</button>
-            </form>
-        </div>
-    </section>
+            <div class="hero-overlay"></div>
 
-    <!-- Botón de WhatsApp flotante -->
-    <a href="https://wa.me/573043018508" target="_blank" class="whatsapp-btn">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKJhTfmGEoahUGgcvPcXyyN8jVr6JpZHUQ0g&s" alt="WhatsApp" class="whatsapp-logo">
+
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        Diseño · Arquitectura · Ingeniería
+                    </div>
+
+
+                    <h1>
+                        Tu proyecto necesita claridad
+                        <span>antes de empezar a construir.</span>
+                    </h1>
+
+
+                    <p class="hero-description">
+                        Gestionamos licencias y desarrollamos soluciones arquitectónicas
+                        y estructurales con acompañamiento técnico de principio a fin.
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <a href="#contacto" class="btn btn-primary">
+                            Solicitar orientación
+                        </a>
+
+                        <a href="https://wa.me/573043018508?text=Hola%20Arqtwan%2C%20quiero%20recibir%20informaci%C3%B3n%20sobre%20un%20proyecto."
+                            target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            Hablar por WhatsApp
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-trust">
+
+                        <div class="trust-item">
+                            <strong>+10 años</strong>
+                            <span>de experiencia</span>
+                        </div>
+
+                        <div class="trust-divider"></div>
+
+                        <div class="trust-item">
+                            <strong>Colombia</strong>
+                            <span>atención de proyectos</span>
+                        </div>
+
+                        <div class="trust-divider"></div>
+
+                        <div class="trust-item">
+                            <strong>Acompañamiento</strong>
+                            <span>técnico y profesional</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+         INTRO
+    ==================================================== -->
+
+        <section class="intro-strip">
+
+            <div class="container intro-grid">
+
+                <p class="section-kicker">
+                    Soluciones integrales
+                </p>
+
+                <p class="intro-text">
+                    Desde la primera consulta hasta el desarrollo técnico del proyecto,
+                    te ayudamos a entender qué necesitas, qué camino debes seguir y cómo
+                    llevarlo adelante con mayor claridad.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+         SERVICIOS
+    ==================================================== -->
+
+        <section class="section services-section" id="servicios">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            Nuestros servicios
+                        </span>
+
+                        <h2>
+                            Soluciones para cada etapa
+                            de tu proyecto
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Integramos gestión, diseño y acompañamiento técnico para ayudarte
+                        a tomar mejores decisiones desde el inicio.
+                    </p>
+
+                </div>
+
+
+                <div class="services-grid">
+
+                    <article class="service-card">
+
+                        <div class="service-number">01</div>
+
+                        <h3>Licencias de construcción</h3>
+
+                        <p>
+                            Revisamos requisitos, documentación y ruta del trámite para
+                            acompañarte durante el proceso.
+                        </p>
+
+                        <a href="#contacto">
+                            Consultar servicio →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">02</div>
+
+                        <h3>Diseño arquitectónico</h3>
+
+                        <p>
+                            Creamos propuestas funcionales y coherentes con las necesidades,
+                            características y posibilidades de cada proyecto.
+                        </p>
+
+                        <a href="#contacto">
+                            Consultar servicio →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">03</div>
+
+                        <h3>Diseño estructural</h3>
+
+                        <p>
+                            Desarrollamos soluciones estructurales y documentación técnica
+                            acorde con las condiciones del proyecto.
+                        </p>
+
+                        <a href="#contacto">
+                            Consultar servicio →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">04</div>
+
+                        <h3>Levantamientos</h3>
+
+                        <p>
+                            Recopilamos y organizamos información técnica del inmueble
+                            como base para intervenciones, diseños o trámites posteriores.
+                        </p>
+
+                        <a href="#contacto">
+                            Consultar servicio →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">05</div>
+
+                        <h3>Reforzamientos</h3>
+
+                        <p>
+                            Analizamos necesidades de intervención y planteamos alternativas
+                            técnicas de acuerdo con las condiciones existentes.
+                        </p>
+
+                        <a href="#contacto">
+                            Consultar servicio →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">06</div>
+
+                        <h3>Asesoría técnica y normativa</h3>
+
+                        <p>
+                            Te ayudamos a comprender requisitos, posibilidades y decisiones
+                            clave antes de avanzar con tu proyecto.
+                        </p>
+
+                        <a href="#contacto">
+                            Consultar servicio →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+         PROCESO
+    ==================================================== -->
+
+        <section class="section process-section" id="proceso">
+
+            <div class="container">
+
+                <div class="section-heading process-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            Cómo trabajamos
+                        </span>
+
+                        <h2>
+                            Un proceso claro desde
+                            la primera conversación
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Cada proyecto es diferente. Por eso empezamos entendiendo
+                        tu situación antes de proponerte una solución.
+                    </p>
+
+                </div>
+
+
+                <div class="process-grid">
+
+                    <article class="process-card">
+
+                        <span class="process-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Cuéntanos tu caso
+                        </h3>
+
+                        <p>
+                            Recopilamos la información inicial sobre el inmueble,
+                            necesidad y objetivo del proyecto.
+                        </p>
+
+                    </article>
+
+
+                    <article class="process-card">
+
+                        <span class="process-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Revisamos el proyecto
+                        </h3>
+
+                        <p>
+                            Analizamos técnicamente el caso y determinamos qué información,
+                            documentos o estudios pueden ser necesarios.
+                        </p>
+
+                    </article>
+
+
+                    <article class="process-card">
+
+                        <span class="process-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Definimos la ruta
+                        </h3>
+
+                        <p>
+                            Te explicamos los siguientes pasos y estructuramos una
+                            propuesta según el alcance requerido.
+                        </p>
+
+                    </article>
+
+
+                    <article class="process-card">
+
+                        <span class="process-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Te acompañamos
+                        </h3>
+
+                        <p>
+                            Desarrollamos el trabajo y mantenemos una comunicación
+                            clara durante cada etapa del proceso.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+         NOSOTROS
+    ==================================================== -->
+
+        <section class="section about-section" id="nosotros">
+
+            <div class="container about-grid">
+
+                <div class="about-visual">
+
+                    <div class="about-image"></div>
+
+                    <div class="experience-card">
+
+                        <strong>
+                            +10
+                        </strong>
+
+                        <span>
+                            Años acompañando proyectos
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-content">
+
+                    <span class="section-kicker">
+                        Sobre Arqtwan
+                    </span>
+
+                    <h2>
+                        Ingeniería y arquitectura
+                        con decisiones bien sustentadas.
+                    </h2>
+
+                    <p>
+                        En Arqtwan acompañamos a propietarios, profesionales y proyectos
+                        que necesitan orientación técnica para avanzar con mayor claridad.
+                    </p>
+
+                    <p>
+                        Nuestro trabajo busca integrar diseño, documentación,
+                        cumplimiento normativo y comunicación durante todo el proceso.
+                    </p>
+
+
+                    <div class="about-points">
+
+                        <div class="about-point">
+                            <span class="check">✓</span>
+                            <span>Comunicación clara</span>
+                        </div>
+
+                        <div class="about-point">
+                            <span class="check">✓</span>
+                            <span>Acompañamiento técnico</span>
+                        </div>
+
+                        <div class="about-point">
+                            <span class="check">✓</span>
+                            <span>Soluciones personalizadas</span>
+                        </div>
+
+                        <div class="about-point">
+                            <span class="check">✓</span>
+                            <span>Enfoque profesional</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+         FAQ
+    ==================================================== -->
+
+        <section class="section faq-section" id="preguntas">
+
+            <div class="container faq-container">
+
+                <div class="faq-heading">
+
+                    <span class="section-kicker">
+                        Preguntas frecuentes
+                    </span>
+
+                    <h2>
+                        Antes de empezar,
+                        es normal tener preguntas.
+                    </h2>
+
+                </div>
+
+
+                <div class="faq-list">
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Qué necesito para iniciar una licencia de construcción?
+                            <span>+</span>
+                        </summary>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                Depende del tipo de inmueble, alcance del proyecto y normativa
+                                aplicable. Primero revisamos tu caso para indicarte qué
+                                información y documentación necesitas.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Realizan diseños arquitectónicos y estructurales?
+                            <span>+</span>
+                        </summary>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                Sí. Podemos desarrollar soluciones arquitectónicas y
+                                estructurales de acuerdo con las necesidades y condiciones
+                                específicas de cada proyecto.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Puedo consultar mi caso antes de contratar?
+                            <span>+</span>
+                        </summary>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                Sí. Puedes contarnos brevemente tu situación y revisaremos
+                                cuál puede ser el siguiente paso antes de definir el alcance
+                                del servicio.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Atienden proyectos en diferentes ciudades?
+                            <span>+</span>
+                        </summary>
+
+                        <div class="faq-answer">
+
+                            <p>
+                                Sí. La modalidad de atención depende de la ubicación,
+                                características y alcance de cada proyecto.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+         CONTACTO
+    ==================================================== -->
+
+        <section class="section contact-section" id="contacto">
+
+            <div class="container contact-grid">
+
+                <div class="contact-copy">
+
+                    <span class="section-kicker light">
+                        Hablemos de tu proyecto
+                    </span>
+
+                    <h2>
+                        Cuéntanos qué necesitas.
+                    </h2>
+
+                    <p>
+                        Déjanos algunos datos y abriremos una conversación en WhatsApp
+                        con la información organizada para poder orientarte mejor.
+                    </p>
+
+
+                    <div class="contact-details">
+
+                        <div>
+
+                            <span>
+                                WhatsApp
+                            </span>
+
+                            <a href="https://wa.me/573043018508" target="_blank" rel="noopener noreferrer">
+                                +57 304 301 8508
+                            </a>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Representante legal
+                            </span>
+
+                            <strong>
+                                Anyela Castiblanco
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORMULARIO -->
+
+                <form class="contact-form" id="form-tramite" novalidate>
+
+                    <div class="form-row">
+
+                        <div class="field">
+
+                            <label for="name">
+                                Nombre completo
+                            </label>
+
+                            <input type="text" id="name" name="name" placeholder="Tu nombre" autocomplete="name"
+                                required>
+
+                            <span class="field-error">
+                                Escribe tu nombre.
+                            </span>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="phone">
+                                Teléfono
+                            </label>
+
+                            <input type="tel" id="phone" name="phone" placeholder="300 000 0000" autocomplete="tel"
+                                required>
+
+                            <span class="field-error">
+                                Escribe un número de contacto.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="email">
+                            Correo electrónico
+                        </label>
+
+                        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com"
+                            autocomplete="email" required>
+
+                        <span class="field-error">
+                            Escribe un correo válido.
+                        </span>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="service">
+                            ¿Qué necesitas?
+                        </label>
+
+                        <select id="service" name="service" required>
+
+                            <option value="">
+                                Selecciona un servicio
+                            </option>
+
+                            <option value="Licencia de construcción">
+                                Licencia de construcción
+                            </option>
+
+                            <option value="Diseño arquitectónico">
+                                Diseño arquitectónico
+                            </option>
+
+                            <option value="Diseño estructural">
+                                Diseño estructural
+                            </option>
+
+                            <option value="Levantamiento">
+                                Levantamiento
+                            </option>
+
+                            <option value="Reforzamiento">
+                                Reforzamiento
+                            </option>
+
+                            <option value="Asesoría técnica">
+                                Asesoría técnica
+                            </option>
+
+                            <option value="Otro">
+                                Otro
+                            </option>
+
+                        </select>
+
+                        <span class="field-error">
+                            Selecciona una opción.
+                        </span>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="message">
+                            Cuéntanos sobre tu proyecto
+                        </label>
+
+                        <textarea id="message" name="message" rows="5"
+                            placeholder="Describe brevemente qué necesitas, dónde está ubicado el proyecto y cualquier dato que consideres importante."
+                            required></textarea>
+
+                        <span class="field-error">
+                            Cuéntanos brevemente sobre tu proyecto.
+                        </span>
+
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary form-submit">
+                        Enviar por WhatsApp
+                    </button>
+
+
+                    <p class="form-note">
+                        Al enviar, se abrirá WhatsApp con tus datos preparados.
+                        Podrás revisar el mensaje antes de enviarlo.
+                    </p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-grid">
+
+            <div class="footer-brand">
+
+                <img src="./LogoArqtwan.jpg" alt="Arqtwan" class="footer-logo">
+
+                <div>
+
+                    <strong>
+                        ARQTWAN
+                    </strong>
+
+                    <p>
+                        Diseño · Arquitectura · Ingeniería
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-navigation">
+
+                <a href="#servicios">
+                    Servicios
+                </a>
+
+                <a href="#proceso">
+                    Proceso
+                </a>
+
+                <a href="#nosotros">
+                    Nosotros
+                </a>
+
+                <a href="#contacto">
+                    Contacto
+                </a>
+
+            </div>
+
+
+            <p class="footer-copy">
+                © <span id="current-year"></span> Arqtwan.
+                Todos los derechos reservados.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+       WHATSAPP FLOTANTE
+  ====================================================== -->
+
+    <a href="https://wa.me/573043018508?text=Hola%20Arqtwan%2C%20quiero%20recibir%20informaci%C3%B3n."
+        class="whatsapp-floating" target="_blank" rel="noopener noreferrer"
+        aria-label="Escribir a Arqtwan por WhatsApp">
+
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path fill="currentColor"
+                d="M16.04 2.003c-7.69 0-13.94 6.244-13.94 13.93 0 2.456.642 4.852 1.86 6.963L2 30l7.28-1.908a13.87 13.87 0 0 0 6.755 1.72h.006c7.687 0 13.94-6.245 13.94-13.93 0-3.722-1.451-7.22-4.086-9.85a13.84 13.84 0 0 0-9.855-4.029Zm0 25.458h-.005a11.53 11.53 0 0 1-5.88-1.611l-.422-.251-4.32 1.132 1.153-4.208-.275-.433a11.5 11.5 0 0 1-1.77-6.157c0-6.351 5.166-11.517 11.524-11.517 3.078 0 5.971 1.199 8.145 3.371a11.44 11.44 0 0 1 3.377 8.145c-.004 6.35-5.17 11.529-11.527 11.529Zm6.317-8.63c-.346-.174-2.047-1.01-2.364-1.126-.317-.115-.548-.173-.778.174-.23.346-.893 1.125-1.095 1.356-.202.23-.404.26-.75.086-.346-.173-1.461-.538-2.783-1.718-1.029-.917-1.723-2.049-1.925-2.395-.202-.346-.021-.533.152-.706.156-.155.346-.404.519-.606.173-.202.231-.346.346-.577.115-.231.058-.433-.029-.606-.086-.173-.778-1.876-1.066-2.568-.281-.674-.566-.582-.778-.593h-.663c-.231 0-.606.087-.923.433-.317.346-1.211 1.183-1.211 2.885s1.24 3.346 1.413 3.577c.173.231 2.44 3.725 5.91 5.223.825.356 1.469.569 1.971.728.828.263 1.582.226 2.178.137.664-.099 2.047-.837 2.336-1.645.288-.808.288-1.501.202-1.645-.087-.144-.318-.231-.664-.404Z">
+            </path>
+        </svg>
+
     </a>
 
-    <!-- Sección de contacto -->
-    <section id="contact">
-        <div class="container">
-            <h2>Contáctanos</h2>
-            <p>Representante Legal: Anyela Castiblanco, Ingeniera Civil</p>
-            <p>Teléfono de contacto: <strong>3043018508</strong></p>
-        </div>
-    </section>
 
-    <!-- Pie de página -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Arqtwan. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <!-- JavaScript -->
+    <script src="./script.js"></script>
 
 </body>
 
