@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Ilustración de referencia: estructura en construcción">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071C27"/>
+      <stop offset="0.55" stop-color="#0A2531"/>
+      <stop offset="1" stop-color="#05141D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.74" cy="0.16" r="0.8">
+      <stop offset="0" stop-color="#28AEE8" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#28AEE8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#9CC6D8" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#28AEE8" stroke-opacity="0.4" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatchWarm" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#D9B57A" stroke-opacity="0.45" stroke-width="1"/>
+    </pattern>
+    <clipPath id="sheet">
+      <rect x="40" y="40" width="1120" height="820"/>
+    </clipPath>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#grid)"/>
+  <rect width="1200" height="900" fill="url(#glow)"/>
+  <g clip-path="url(#sheet)">
+
+  <g fill="none" stroke="#46707F" stroke-width="1.5">
+    <path d="M180 780 H1020"/>
+    <path d="M140 800 H1060" stroke="#2F5361" stroke-width="1"/>
+  </g><rect x="160" y="780" width="840" height="14" fill="#DCE9EE" fill-opacity="0.06"/><path d="M160 780 H1000" stroke="#46707F" stroke-width="2.2"/><path d="M160 794 H1000" stroke="#2F5361" stroke-width="1"/><rect x="160" y="640" width="840" height="14" fill="#DCE9EE" fill-opacity="0.06"/><path d="M160 640 H1000" stroke="#46707F" stroke-width="2.2"/><path d="M160 654 H1000" stroke="#2F5361" stroke-width="1"/><rect x="160" y="500" width="840" height="14" fill="#DCE9EE" fill-opacity="0.06"/><path d="M160 500 H1000" stroke="#46707F" stroke-width="2.2"/><path d="M160 514 H1000" stroke="#2F5361" stroke-width="1"/><rect x="160" y="360" width="840" height="14" fill="#DCE9EE" fill-opacity="0.06"/><path d="M160 360 H1000" stroke="#46707F" stroke-width="2.2"/><path d="M160 374 H1000" stroke="#2F5361" stroke-width="1"/><rect x="160" y="220" width="840" height="14" fill="#DCE9EE" fill-opacity="0.06"/><path d="M160 220 H1000" stroke="#46707F" stroke-width="2.2"/><path d="M160 234 H1000" stroke="#2F5361" stroke-width="1"/><rect x="191" y="220" width="18" height="560" fill="#0B2835" stroke="#46707F" stroke-width="1.3"/><rect x="371" y="220" width="18" height="560" fill="#0B2835" stroke="#46707F" stroke-width="1.3"/><rect x="551" y="220" width="18" height="560" fill="#0B2835" stroke="#46707F" stroke-width="1.3"/><rect x="731" y="220" width="18" height="560" fill="#0B2835" stroke="#46707F" stroke-width="1.3"/><rect x="911" y="220" width="18" height="560" fill="#0B2835" stroke="#46707F" stroke-width="1.3"/><rect x="191" y="220" width="18" height="560" fill="url(#hatch)" stroke="#28AEE8" stroke-opacity="0.7" stroke-width="1.3"/><rect x="551" y="220" width="18" height="560" fill="url(#hatch)" stroke="#28AEE8" stroke-opacity="0.7" stroke-width="1.3"/><rect x="911" y="220" width="18" height="560" fill="url(#hatch)" stroke="#28AEE8" stroke-opacity="0.7" stroke-width="1.3"/><path d="M194 220 V198 M200 220 V188 M206 220 V200" stroke="#D9B57A" stroke-opacity="0.5" stroke-width="1.2"/><path d="M374 220 V198 M380 220 V188 M386 220 V200" stroke="#D9B57A" stroke-opacity="0.5" stroke-width="1.2"/><path d="M554 220 V198 M560 220 V188 M566 220 V200" stroke="#D9B57A" stroke-opacity="0.5" stroke-width="1.2"/><path d="M734 220 V198 M740 220 V188 M746 220 V200" stroke="#D9B57A" stroke-opacity="0.5" stroke-width="1.2"/><path d="M914 220 V198 M920 220 V188 M926 220 V200" stroke="#D9B57A" stroke-opacity="0.5" stroke-width="1.2"/>
+  <g stroke="#DCE9EE" stroke-opacity="0.3" stroke-width="1">
+    <path d="M96 800 V300 M160 800 V300 M96 380 H160 M96 520 H160 M96 660 H160"/>
+    <path d="M96 380 L160 520 M160 380 L96 520 M96 520 L160 660 M160 520 L96 660"/>
+  </g>
+  <g stroke="#D9B57A" stroke-opacity="0.6" stroke-width="1.3" fill="none">
+    <path d="M1072 800 V140 M1088 800 V140"/>
+    <path d="M1052 800 H1108"/>
+    <path d="M1072 140 L764 170 M1088 148 L764 170"/>
+    <path d="M764 170 V150 M764 170 V192"/>
+    <path d="M1080 140 L1146 162 M1088 148 L1146 162"/>
+    <path d="M820 168 V420" stroke-dasharray="5 5"/>
+    <rect x="798" y="420" width="44" height="16" fill="#D9B57A" fill-opacity="0.18"/>
+  </g><path d="M1072 180 H1088 M1072 180 L1088 140" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 220 H1088 M1072 220 L1088 180" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 260 H1088 M1072 260 L1088 220" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 300 H1088 M1072 300 L1088 260" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 340 H1088 M1072 340 L1088 300" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 380 H1088 M1072 380 L1088 340" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 420 H1088 M1072 420 L1088 380" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 460 H1088 M1072 460 L1088 420" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 500 H1088 M1072 500 L1088 460" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 540 H1088 M1072 540 L1088 500" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 580 H1088 M1072 580 L1088 540" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 620 H1088 M1072 620 L1088 580" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 660 H1088 M1072 660 L1088 620" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 700 H1088 M1072 700 L1088 660" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 740 H1088 M1072 740 L1088 700" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><path d="M1072 780 H1088 M1072 780 L1088 740" stroke="#D9B57A" stroke-opacity="0.35" stroke-width="1"/><g fill="none" stroke="#D9B57A"><circle cx="300" cy="150" r="44" stroke-opacity="0.38" stroke-width="1.2"/><circle cx="300" cy="150" r="54" stroke-opacity="0.16" stroke-dasharray="2 10"/></g>
+  <g stroke="#2F5361" stroke-opacity="0.5" stroke-width="1">
+    <path d="M140 820 H1060 M180 840 H1020 M240 860 H960"/>
+  </g><path d="M1000 220 V780" stroke="#28AEE8" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="6 6"/>
+  </g>
+  <g fill="none" stroke="#46707F" stroke-opacity="0.55" stroke-width="1">
+    <rect x="40" y="40" width="1120" height="820"/>
+    <path d="M40 700 V760 M40 40 V100 M1160 700 V760 M1160 40 V100"/>
+  </g>
+  <g stroke="#28AEE8" stroke-opacity="0.8" stroke-width="1.2">
+    <path d="M24 40 H40 M40 24 V40 M1160 24 V40 M1160 40 H1176 M24 860 H40 M40 860 V876 M1160 860 V876 M1160 860 H1176"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="11" letter-spacing="4.5" fill="#8FB3C2" fill-opacity="0.65">
+    <line x1="64" y1="836" x2="94" y2="836" stroke="#28AEE8" stroke-width="2"/>
+    <text x="108" y="840">ARQTWAN · REFERENCIA GRÁFICA</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="3.5" fill="#8FB3C2" fill-opacity="0.4">
+    <text x="1136" y="840" text-anchor="end">IMAGEN ILUSTRATIVA · NO CORRESPONDE A UN PROYECTO EJECUTADO</text>
+  </g>
+</svg>

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="dark light">
+<title>Editor · Arqtwan</title>
+<link rel="stylesheet" href="/admin/editor.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__brand">
+    <span class="mark" aria-hidden="true">A</span>
+    <div class="topbar__titles">
+      <strong>Editor ARQTWAN</strong>
+      <span id="dirty-label" class="pill pill--clean">Sin cambios sin guardar</span>
+    </div>
+  </div>
+  <div class="topbar__actions">
+    <button type="button" id="btn-preview" class="btn btn--ghost" title="Guarda, regenera y abre el sitio local">Vista previa</button>
+    <button type="button" id="btn-save" class="btn btn--primary">Guardar y regenerar</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Secciones del editor">
+  <button type="button" class="tab is-active" data-tab="portada" role="tab" aria-selected="true">Portada</button>
+  <button type="button" class="tab" data-tab="servicios" role="tab" aria-selected="false">Servicios</button>
+  <button type="button" class="tab" data-tab="proyectos" role="tab" aria-selected="false">Proyectos</button>
+  <button type="button" class="tab" data-tab="contacto" role="tab" aria-selected="false">Contacto</button>
+  <button type="button" class="tab" data-tab="seo" role="tab" aria-selected="false">SEO</button>
+  <button type="button" class="tab" data-tab="publicar" role="tab" aria-selected="false">Publicar</button>
+</nav>
+
+<main class="content">
+
+  <!-- PORTADA -->
+  <section class="panel is-active" id="tab-portada" role="tabpanel" aria-labelledby="tab-portada">
+    <div class="panel__head">
+      <h1>Portada</h1>
+      <p>Texto principal, imagen de fondo y video del encabezado.</p>
+    </div>
+
+    <div class="card">
+      <h2>Textos del encabezado</h2>
+      <div class="field">
+        <label for="hero-kicker">Antetítulo</label>
+        <input type="text" id="hero-kicker" maxlength="90">
+        <p class="hint">Línea corta sobre el título. Ej.: Arquitectura · Ingeniería · Construcción.</p>
+      </div>
+      <div class="field">
+        <label for="hero-title">Título principal</label>
+        <input type="text" id="hero-title" maxlength="120">
+        <p class="hint">Es el <code>h1</code> de la página. Conviene mantenerlo por debajo de 70 caracteres.</p>
+      </div>
+      <div class="field">
+        <label for="hero-em">Palabras destacadas del título</label>
+        <input type="text" id="hero-em" maxlength="60">
+        <p class="hint">Se muestran en cursiva. Deben estar escritas igual dentro del título; si no coinciden, no se resaltan.</p>
+      </div>
+      <div class="field">
+        <label for="hero-lede">Párrafo de entrada</label>
+        <textarea id="hero-lede" rows="4" maxlength="320"></textarea>
+        <p class="hint"><span data-counter-for="hero-lede"></span></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Imagen de fondo (poster)</h2>
+      <div class="media">
+        <img id="poster-preview" class="media__preview" alt="Vista previa de la imagen de portada" src="/preview/assets/img/hero-poster.jpg">
+        <div class="media__body">
+          <p class="hint">Se recorta a 1920×1080 y se guarda como JPG optimizado. Es la imagen que se ve mientras carga el video y en equipos con ahorro de datos.</p>
+          <label class="file">
+            <input type="file" id="poster-file" accept="image/*">
+            <span>Elegir imagen…</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Video de fondo</h2>
+      <div class="field">
+        <p class="hint">Debe ser MP4 (H.264), 1920×1080, unos 10 segundos y menos de 15 MB. El navegador no lo convierte: si no cumple, el sitio se verá más lento.</p>
+        <label class="file">
+          <input type="file" id="video-file" accept="video/mp4">
+          <span>Reemplazar video…</span>
+        </label>
+        <p class="hint" id="video-status">Video actual: assets/video/hero.mp4</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="panel" id="tab-servicios" role="tabpanel">
+    <div class="panel__head">
+      <h1>Servicios</h1>
+      <p>Cada servicio tiene su propia página. Aquí cambias textos, alcance, entregables, pasos y preguntas.</p>
+    </div>
+
+    <div class="card">
+      <div class="field">
+        <label for="service-select">Servicio a editar</label>
+        <select id="service-select"></select>
+      </div>
+      <p class="hint">El nombre y el enlace de cada servicio no se cambian desde aquí: se mantienen estables para no romper el SEO ni los enlaces publicados.</p>
+    </div>
+
+    <div class="card">
+      <h2>Presentación</h2>
+      <div class="field">
+        <label for="svc-name">Nombre</label>
+        <input type="text" id="svc-name" maxlength="80">
+      </div>
+      <div class="field">
+        <label for="svc-short">Texto corto (tarjetas y listados)</label>
+        <textarea id="svc-short" rows="2" maxlength="220"></textarea>
+        <p class="hint"><span data-counter-for="svc-short"></span></p>
+      </div>
+      <div class="field">
+        <label for="svc-summary">Resumen de la página</label>
+        <textarea id="svc-summary" rows="4" maxlength="600"></textarea>
+        <p class="hint"><span data-counter-for="svc-summary"></span></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Imagen del servicio</h2>
+      <div class="media">
+        <img id="svc-plate-preview" class="media__preview media__preview--wide" alt="Vista previa de la imagen del servicio">
+        <div class="media__body">
+          <p class="hint">Se recorta a 1200×900 (4:3). Si subes una foto real de una obra, marca la casilla para que la nota legal lo diga.</p>
+          <label class="file">
+            <input type="file" id="svc-plate-file" accept="image/*">
+            <span>Elegir imagen…</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="svc-real">
+            <span>Es una foto propia de un trabajo ejecutado</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Alcance y entregables</h2>
+      <div class="field">
+        <label for="svc-bullets">Alcance (un punto por línea)</label>
+        <textarea id="svc-bullets" rows="7"></textarea>
+      </div>
+      <div class="field">
+        <label for="svc-deliverables">Entregables (uno por línea)</label>
+        <textarea id="svc-deliverables" rows="5"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Pasos del proceso</h2>
+      <div id="svc-steps" class="rows"></div>
+      <button type="button" class="btn btn--ghost btn--sm" id="svc-add-step">Añadir paso</button>
+    </div>
+
+    <div class="card">
+      <h2>Preguntas frecuentes</h2>
+      <div id="svc-faq" class="rows"></div>
+      <button type="button" class="btn btn--ghost btn--sm" id="svc-add-faq">Añadir pregunta</button>
+    </div>
+  </section>
+
+
+  <!-- PROYECTOS -->
+  <section class="panel" id="tab-proyectos" role="tabpanel">
+    <div class="panel__head">
+      <h1>Proyectos</h1>
+      <p>Añade trabajos con su foto, datos y una descripción breve. Se publican en la página de proyectos y en el HTML (visibles para Google).</p>
+    </div>
+
+    <div class="card card--flat">
+      <div class="row row--between">
+        <p class="hint" id="projects-count"></p>
+        <button type="button" class="btn btn--primary btn--sm" id="btn-add-project">Añadir proyecto</button>
+      </div>
+    </div>
+
+    <div id="projects-list" class="stack"></div>
+
+    <div class="card" id="projects-empty" hidden>
+      <p class="hint">Todavía no hay proyectos: el sitio muestra el mensaje honesto de “Portafolio en construcción”. Al añadir el primero, ese mensaje desaparece solo.</p>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="panel" id="tab-contacto" role="tabpanel">
+    <div class="panel__head">
+      <h1>Contacto y datos del negocio</h1>
+      <p>Estos datos alimentan el botón de WhatsApp, el pie de página, el formulario y los datos estructurados de Google.</p>
+    </div>
+
+    <div class="card">
+      <h2>WhatsApp y correo</h2>
+      <div class="grid grid--2">
+        <div class="field">
+          <label for="site-whatsapp">WhatsApp (solo dígitos, con indicativo)</label>
+          <input type="text" id="site-whatsapp" inputmode="numeric" maxlength="15">
+          <p class="hint">Ej.: 573043018508 (57 = Colombia).</p>
+        </div>
+        <div class="field">
+          <label for="site-whatsapp-display">WhatsApp como se muestra</label>
+          <input type="text" id="site-whatsapp-display" maxlength="30">
+        </div>
+      </div>
+      <div class="field">
+        <label for="site-email">Correo (opcional)</label>
+        <input type="email" id="site-email" maxlength="80">
+        <p class="hint">Si lo dejas vacío, el sitio no muestra correo (como ahora).</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Ubicación y horario</h2>
+      <div class="grid grid--2">
+        <div class="field">
+          <label for="site-city">Ciudad</label>
+          <input type="text" id="site-city" maxlength="60">
+        </div>
+        <div class="field">
+          <label for="site-years">Años de experiencia</label>
+          <input type="text" id="site-years" maxlength="4" inputmode="numeric">
+        </div>
+      </div>
+      <div class="field">
+        <label for="site-service-area">Zona de atención</label>
+        <input type="text" id="site-service-area" maxlength="80">
+      </div>
+      <div class="field">
+        <label for="site-hours">Horario</label>
+        <input type="text" id="site-hours" maxlength="90">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Imagen al compartir en redes (Open Graph)</h2>
+      <div class="media">
+        <img id="og-preview" class="media__preview media__preview--og" alt="Vista previa de la imagen para redes sociales">
+        <div class="media__body">
+          <p class="hint">1200×630 px. Es la imagen que aparece en WhatsApp, Facebook o LinkedIn al compartir el enlace.</p>
+          <label class="file">
+            <input type="file" id="og-file" accept="image/*">
+            <span>Elegir imagen…</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SEO -->
+  <section class="panel" id="tab-seo" role="tabpanel">
+    <div class="panel__head">
+      <h1>SEO</h1>
+      <p>Título y descripción que Google muestra para cada página. Los contadores avisan cuando te pasas de la medida recomendada.</p>
+    </div>
+
+    <div class="card card--flat">
+      <p class="hint">Recomendado: título de 40 a 60 caracteres y descripción de 120 a 160. Si dejas un campo igual al valor por defecto, se guarda igualmente como texto propio.</p>
+    </div>
+
+    <div id="seo-list" class="stack"></div>
+  </section>
+
+  <!-- PUBLICAR -->
+  <section class="panel" id="tab-publicar" role="tabpanel">
+    <div class="panel__head">
+      <h1>Publicar</h1>
+      <p>El editor nunca publica solo. Prepara una carpeta con los archivos exactos que debes subir a GitHub; la Action reconstruye y publica el sitio.</p>
+    </div>
+
+    <div class="card">
+      <h2>Repositorio de GitHub</h2>
+      <div class="field">
+        <label for="repo-input">Usuario y repositorio</label>
+        <input type="text" id="repo-input" placeholder="usuario/arqtwan-web" maxlength="90">
+        <p class="hint">Solo se usa para mostrarte el enlace de carga. No se envía nada a GitHub desde aquí.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Archivos que debes subir</h2>
+      <ul class="files" id="changed-list"></ul>
+      <p class="hint">Si la lista está vacía, se subirá solo <code>data/content.js</code>. Las fotos que hayas cambiado se añaden solas.</p>
+      <div class="row">
+        <button type="button" class="btn btn--primary" id="btn-export">Preparar carpeta _publicar</button>
+        <button type="button" class="btn btn--ghost" id="btn-reset-changes">Vaciar lista</button>
+      </div>
+      <p class="hint" id="export-result" hidden></p>
+    </div>
+
+    <div class="card">
+      <h2>Pasos para publicar</h2>
+      <ol class="steps">
+        <li>Pulsa <strong>Guardar y regenerar</strong> y revisa la <strong>Vista previa</strong>.</li>
+        <li>Pulsa <strong>Preparar carpeta _publicar</strong>.</li>
+        <li>Abre en el explorador de Windows la carpeta del proyecto y entra en <code>_publicar</code>.</li>
+        <li>En GitHub, abre la página de carga del repositorio y <strong>arrastra la carpeta <code>_publicar</code> completa</strong> (no su contenido suelto).</li>
+        <li>Escribe un mensaje de commit claro y pulsa <strong>Commit changes</strong>.</li>
+        <li>Espera 1–2 minutos: la Action reconstruye el sitio y lo publica. Si falla, el sitio anterior sigue en línea.</li>
+      </ol>
+      <p class="hint">
+        <a id="upload-link" href="#" target="_blank" rel="noopener">Abrir la página de carga de GitHub</a>
+        (se activa cuando escribes el repositorio)
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="statusbar">
+  <span id="status">Cargando estado…</span>
+  <span id="status-detail"></span>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/admin/editor.js"></script>
+</body>
+</html>
+

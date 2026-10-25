@@ -1,0 +1,54 @@
+name: Publicar sitio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generar las paginas desde data/content.js
+        run: python tools/build_pages.py --out _site
+
+      - name: Copiar archivos estaticos
+        run: |
+          cp -r assets data styles.css script.js favicon.ico site.webmanifest CNAME _site/
+          touch _site/.nojekyll
+
+      - name: Verificar enlaces, canonical y JSON-LD
+        run: python tools/check_links.py --root _site
+
+      - name: Empaquetar el sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

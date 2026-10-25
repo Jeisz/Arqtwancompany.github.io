@@ -1,0 +1,23 @@
+# Artefactos locales (no se suben al repositorio)
+_site/
+_publicar/
+.tmp_review/
+.tmp_frames/
+.tmp_*.py
+.tmp_editor_pid.txt
+__pycache__/
+*.pyc
+.vscode/
+
+# Copias de seguridad del editor local
+backup/
+
+# Paginas generadas: se reconstruyen en cada publicacion
+/index.html
+/proyectos.html
+/contacto.html
+/privacidad.html
+/404.html
+/servicios/
+/sitemap.xml
+/robots.txt

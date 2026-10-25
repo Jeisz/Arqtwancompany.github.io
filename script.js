@@ -1,483 +1,379 @@
-/* ==========================================================
-   ARQTWAN V2
-   JavaScript principal
-========================================================== */
+/* =========================================================
+   ARQTWAN · Comportamiento del sitio
+   Sin dependencias. Todo se inicializa de forma defensiva.
+   ========================================================= */
+(function () {
+  "use strict";
 
+  var doc = document;
+  var root = doc.documentElement;
+  var content = window.ARQTWAN || {};
+  var site = content.site || {};
+  var reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-document.addEventListener("DOMContentLoaded", () => {
+  root.classList.remove("no-js");
 
+  /* ---------- Utilidades ---------- */
+  function $(sel, ctx) {
+    return (ctx || doc).querySelector(sel);
+  }
 
-    /* ========================================================
-       ELEMENTOS
-    ======================================================== */
+  function $$(sel, ctx) {
+    return Array.prototype.slice.call((ctx || doc).querySelectorAll(sel));
+  }
 
-    const header =
-        document.getElementById("site-header");
+  function on(el, evt, fn, opts) {
+    if (el) el.addEventListener(evt, fn, opts || false);
+  }
 
-    const menuToggle =
-        document.getElementById("menu-toggle");
+  function waLink(message) {
+    var phone = (site.whatsapp || "").replace(/[^\d]/g, "");
+    var base = "https://wa.me/" + phone;
+    return message ? base + "?text=" + encodeURIComponent(message) : base;
+  }
 
-    const menu =
-        document.getElementById("main-menu");
+  function track(name, params) {
+    try {
+      doc.dispatchEvent(
+        new CustomEvent("arqtwan:track", {
+          detail: { name: name, params: params || {} }
+        })
+      );
+      if (typeof window.gtag === "function") {
+        window.gtag("event", name, params || {});
+      }
+    } catch (err) {
+      /* la analitica nunca debe romper la pagina */
+    }
+  }
 
-    const form =
-        document.getElementById("form-tramite");
+  /* ---------- Cabecera ---------- */
+  function initHeader() {
+    var header = $("[data-header]");
+    if (!header) return;
 
-    const year =
-        document.getElementById("current-year");
+    var onScroll = function () {
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+      var top = $("[data-back-top]");
+      if (top) top.classList.toggle("is-visible", window.scrollY > 700);
+    };
 
+    onScroll();
+    on(window, "scroll", onScroll, { passive: true });
+  }
 
+  /* ---------- Navegacion ---------- */
+  function initNav() {
+    var toggle = $("[data-nav-toggle]");
+    var nav = $("[data-nav]");
+    if (!toggle || !nav) return;
 
-    /* ========================================================
-       AÑO AUTOMÁTICO
-    ======================================================== */
-
-    if (year) {
-
-        year.textContent =
-            new Date().getFullYear();
-
+    function setOpen(open) {
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      nav.classList.toggle("is-open", open);
+      doc.body.classList.toggle("is-locked", open);
     }
 
+    on(toggle, "click", function () {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
 
+    on(doc, "keydown", function (e) {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
 
-    /* ========================================================
-       HEADER AL HACER SCROLL
-    ======================================================== */
+    on(window, "resize", function () {
+      if (window.innerWidth > 980) setOpen(false);
+    });
 
-    function updateHeader() {
+    $$(".nav a", nav).forEach(function (link) {
+      on(link, "click", function () {
+        if (window.innerWidth <= 980) setOpen(false);
+      });
+    });
+  }
 
-        if (!header) {
-            return;
+  /* ---------- Submenu de servicios ---------- */
+  function initSubmenus() {
+    $$("[data-submenu]").forEach(function (wrap) {
+      var button = $("button", wrap);
+      if (!button) return;
+
+      function close() {
+        wrap.classList.remove("is-open");
+        button.setAttribute("aria-expanded", "false");
+      }
+
+      on(button, "click", function (e) {
+        e.preventDefault();
+        var open = wrap.classList.toggle("is-open");
+        button.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      on(wrap, "mouseenter", function () {
+        if (window.innerWidth > 980) {
+          wrap.classList.add("is-open");
+          button.setAttribute("aria-expanded", "true");
         }
+      });
 
+      on(wrap, "mouseleave", function () {
+        if (window.innerWidth > 980) close();
+      });
 
-        if (window.scrollY > 20) {
+      on(doc, "click", function (e) {
+        if (!wrap.contains(e.target)) close();
+      });
 
-            header.classList.add("scrolled");
+      on(doc, "keydown", function (e) {
+        if (e.key === "Escape") close();
+      });
+    });
+  }
 
-        } else {
+  /* ---------- Aparicion al hacer scroll ---------- */
+  function initReveal() {
+    var items = $$(".reveal");
+    if (!items.length) return;
 
-            header.classList.remove("scrolled");
-
-        }
-
+    if (!("IntersectionObserver" in window) || reduceMotion) {
+      items.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+      return;
     }
 
-
-    window.addEventListener(
-        "scroll",
-        updateHeader,
-        {
-            passive: true
-        }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
     );
 
+    items.forEach(function (el, i) {
+      if (!el.style.getPropertyValue("--reveal-delay")) {
+        el.style.setProperty("--reveal-delay", Math.min(i, 5) * 70 + "ms");
+      }
+      io.observe(el);
+    });
+  }
 
-    updateHeader();
+  /* ---------- Preguntas frecuentes ---------- */
+  function initFaq() {
+    $$("[data-faq]").forEach(function (group) {
+      var items = $$("details", group);
+      items.forEach(function (item) {
+        on(item, "toggle", function () {
+          if (!item.open) return;
+          items.forEach(function (other) {
+            if (other !== item) other.open = false;
+          });
+          var summary = $("summary", item);
+          if (summary) {
+            track("faq_open", { question: summary.textContent.trim().slice(0, 80) });
+          }
+        });
+      });
+    });
+  }
 
+  /* ---------- Volver arriba ---------- */
+  function initBackTop() {
+    var button = $("[data-back-top]");
+    if (!button) return;
+    on(button, "click", function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
 
+  /* ---------- Enlaces de WhatsApp ---------- */
+  function initWhatsApp() {
+    $$("[data-wa]").forEach(function (el) {
+      var msg = el.getAttribute("data-wa") || "";
+      el.setAttribute("href", waLink(msg));
+      el.setAttribute("target", "_blank");
+      el.setAttribute("rel", "noopener");
+      on(el, "click", function () {
+        track("whatsapp_click", {
+          origen: el.getAttribute("data-wa-origen") || "sitio"
+        });
+      });
+    });
+  }
 
-    /* ========================================================
-       MENÚ MOBILE
-    ======================================================== */
+  /* ---------- Footer ---------- */
+  function initYear() {
+    $$("[data-year]").forEach(function (el) {
+      el.textContent = String(new Date().getFullYear());
+    });
+  }
 
-    if (menuToggle && menu) {
+  /* ---------- Formulario de cotizacion ---------- */
+  function initForms() {
+    $$("[data-quote-form]").forEach(function (form) {
+      var status = $("[data-form-status]", form);
 
-        menuToggle.addEventListener(
-            "click",
-            () => {
+      function setError(field, hasError) {
+        if (!field) return;
+        var wrap = field.closest(".field");
+        if (wrap) wrap.classList.toggle("has-error", hasError);
+        field.setAttribute("aria-invalid", hasError ? "true" : "false");
+      }
 
-                const isOpen =
-                    menu.classList.toggle("active");
+      function show(kind, message) {
+        if (!status) return;
+        status.className = "form__status form__status--" + kind + " is-visible";
+        status.textContent = message;
+      }
 
+      on(form, "submit", function (e) {
+        e.preventDefault();
 
-                menuToggle.classList.toggle(
-                    "active",
-                    isOpen
-                );
+        var name = form.elements.namedItem("nombre");
+        var phone = form.elements.namedItem("telefono");
+        var service = form.elements.namedItem("servicio");
+        var city = form.elements.namedItem("ciudad");
+        var message = form.elements.namedItem("mensaje");
+        var ok = true;
 
+        if (!name || name.value.trim().length < 2) {
+          setError(name, true);
+          ok = false;
+        } else {
+          setError(name, false);
+        }
 
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    String(isOpen)
-                );
+        var digits = phone ? phone.value.replace(/[^\d]/g, "") : "";
+        if (digits.length < 7) {
+          setError(phone, true);
+          ok = false;
+        } else {
+          setError(phone, false);
+        }
 
+        if (!ok) {
+          show(
+            "error",
+            "Revisa tu nombre y un número de teléfono válido para poder responderte."
+          );
+          track("form_error", { motivo: "validacion" });
+          return;
+        }
 
-                if (isOpen) {
+        var lines = [
+          "Hola Arqtwan, quiero cotizar un proyecto.",
+          "",
+          "Nombre: " + name.value.trim(),
+          "Teléfono: " + phone.value.trim(),
+          "Ciudad: " + (city && city.value.trim() ? city.value.trim() : "No indicada"),
+          "Servicio: " + (service && service.value ? service.value : "Por definir")
+        ];
 
-                    document.body.style.overflow =
-                        "hidden";
+        if (message && message.value.trim()) {
+          lines.push("", "Detalle: " + message.value.trim());
+        }
 
-                } else {
+        var url = waLink(lines.join("\n"));
+        var link = $("[data-form-fallback]", form);
+        if (link) {
+          link.href = url;
+          link.hidden = false;
+        }
 
-                    document.body.style.overflow =
-                        "";
-
-                }
-
-            }
+        show(
+          "ok",
+          "Abrimos WhatsApp con tu solicitud lista para enviar. Si no se abre automáticamente, usa el enlace de abajo."
         );
 
-
-
-        const menuLinks =
-            menu.querySelectorAll("a");
-
-
-        menuLinks.forEach(link => {
-
-            link.addEventListener(
-                "click",
-                () => {
-
-                    menu.classList.remove("active");
-
-                    menuToggle.classList.remove(
-                        "active"
-                    );
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    document.body.style.overflow =
-                        "";
-
-                }
-            );
-
+        track("form_submit", {
+          servicio: service && service.value ? service.value : "sin_definir"
         });
 
+        window.open(url, "_blank", "noopener");
+      });
+    });
+  }
+
+  /* ---------- Proyectos publicados desde el panel ---------- */
+  function initProjects() {
+    var grid = $("[data-projects]");
+    if (!grid) return;
+
+    var items = Array.isArray(content.projects) ? content.projects.slice() : [];
+    var empty = $("[data-projects-empty]");
+    var note = $("[data-projects-note]");
+
+    if (!items.length) {
+      if (empty) empty.hidden = false;
+      return;
     }
 
+    if (empty) empty.hidden = true;
+    if (note) note.hidden = false;
 
+    /* Las fichas ya vienen renderizadas en el HTML (SEO). Solo se
+       reconstruyen si la pagina no las incluye. */
+    if (grid.children.length) return;
 
-    /* ========================================================
-       SCROLL SUAVE
-    ======================================================== */
-
-    const anchorLinks =
-        document.querySelectorAll(
-            'a[href^="#"]'
+    grid.innerHTML = items
+      .map(function (p, i) {
+        var img = p.image || "assets/img/plate-arquitectura.svg";
+        var title = p.title || "Proyecto";
+        var sub = [p.type, p.location, p.year].filter(Boolean).join(" · ");
+        var alt = String(p.alt || title).replace(/"/g, "&quot;");
+        var desc = p.description
+          ? '<p class="work-card__desc">' +
+            String(p.description).replace(/</g, "&lt;") +
+            "</p>"
+          : "";
+        return (
+          '<article class="work-card reveal" style="--reveal-delay:' +
+          Math.min(i, 5) * 60 +
+          'ms">' +
+          '<img class="work-card__img" src="' +
+          img +
+          '" alt="' +
+          alt +
+          '" loading="lazy" width="640" height="480">' +
+          '<div class="work-card__meta"><h3 class="work-card__title">' +
+          title +
+          '</h3><p class="work-card__sub">' +
+          sub +
+          "</p>" +
+          desc +
+          "</div></article>"
         );
-
-
-    anchorLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            event => {
-
-                const href =
-                    link.getAttribute("href");
-
-
-                if (!href || href === "#") {
-
-                    return;
-
-                }
-
-
-                const target =
-                    document.querySelector(href);
-
-
-                if (!target) {
-
-                    return;
-
-                }
-
-
-                event.preventDefault();
-
-
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-        );
-
-    });
-
-
-
-    /* ========================================================
-       FORMULARIO
-    ======================================================== */
-
-    if (form) {
-
-        const fields =
-            form.querySelectorAll(
-                "input, textarea, select"
-            );
-
-
-
-        /* ======================================================
-           QUITAR ERROR AL ESCRIBIR
-        ====================================================== */
-
-        fields.forEach(field => {
-
-            const removeError = () => {
-
-                const fieldContainer =
-                    field.closest(".field");
-
-
-                if (fieldContainer) {
-
-                    fieldContainer.classList.remove(
-                        "invalid"
-                    );
-
-                }
-
-            };
-
-
-            field.addEventListener(
-                "input",
-                removeError
-            );
-
-
-            field.addEventListener(
-                "change",
-                removeError
-            );
-
-        });
-
-
-
-        /* ======================================================
-           SUBMIT
-        ====================================================== */
-
-        form.addEventListener(
-            "submit",
-            event => {
-
-                event.preventDefault();
-
-
-                let isValid =
-                    true;
-
-
-                const requiredFields =
-                    form.querySelectorAll(
-                        "[required]"
-                    );
-
-
-
-                requiredFields.forEach(field => {
-
-                    const fieldContainer =
-                        field.closest(".field");
-
-
-                    if (!field.checkValidity()) {
-
-                        isValid =
-                            false;
-
-
-                        if (fieldContainer) {
-
-                            fieldContainer.classList.add(
-                                "invalid"
-                            );
-
-                        }
-
-                    } else {
-
-                        if (fieldContainer) {
-
-                            fieldContainer.classList.remove(
-                                "invalid"
-                            );
-
-                        }
-
-                    }
-
-                });
-
-
-
-                /* ==================================================
-                   SI HAY ERRORES
-                ================================================== */
-
-                if (!isValid) {
-
-                    const firstInvalid =
-                        form.querySelector(
-                            ":invalid"
-                        );
-
-
-                    if (firstInvalid) {
-
-                        firstInvalid.focus();
-
-                    }
-
-
-                    return;
-
-                }
-
-
-
-                /* ==================================================
-                   DATOS
-                ================================================== */
-
-                const name =
-                    document
-                        .getElementById("name")
-                        .value
-                        .trim();
-
-
-                const phone =
-                    document
-                        .getElementById("phone")
-                        .value
-                        .trim();
-
-
-                const email =
-                    document
-                        .getElementById("email")
-                        .value
-                        .trim();
-
-
-                const service =
-                    document
-                        .getElementById("service")
-                        .value
-                        .trim();
-
-
-                const message =
-                    document
-                        .getElementById("message")
-                        .value
-                        .trim();
-
-
-
-                /* ==================================================
-                   MENSAJE WHATSAPP
-                ================================================== */
-
-                const whatsappMessage =
-                    `Hola Arqtwan,
-
-Quiero recibir orientación sobre un proyecto.
-
-Nombre: ${name}
-Teléfono: ${phone}
-Correo: ${email}
-Servicio: ${service}
-
-Descripción del proyecto:
-${message}
-
-Enviado desde arqtwan.com`;
-
-
-
-                /* ==================================================
-                   URL WHATSAPP
-                ================================================== */
-
-                const whatsappNumber =
-                    "573043018508";
-
-
-                const encodedMessage =
-                    encodeURIComponent(
-                        whatsappMessage
-                    );
-
-
-                const whatsappUrl =
-                    `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-
-
-                /* ==================================================
-                   ABRIR WHATSAPP
-                ================================================== */
-
-                window.open(
-                    whatsappUrl,
-                    "_blank",
-                    "noopener,noreferrer"
-                );
-
-            }
-        );
-
-    }
-
-
-
-    /* ========================================================
-       FAQ
-       Solo una pregunta abierta a la vez
-    ======================================================== */
-
-    const faqItems =
-        document.querySelectorAll(
-            ".faq-item"
-        );
-
-
-    faqItems.forEach(item => {
-
-        item.addEventListener(
-            "toggle",
-            () => {
-
-                if (!item.open) {
-
-                    return;
-
-                }
-
-
-                faqItems.forEach(otherItem => {
-
-                    if (otherItem !== item) {
-
-                        otherItem.removeAttribute(
-                            "open"
-                        );
-
-                    }
-
-                });
-
-            }
-        );
-
-    });
-
-
-});
+      })
+      .join("");
+  }
+
+  /* ---------- Arranque ---------- */
+  function init() {
+    initHeader();
+    initNav();
+    initSubmenus();
+    initReveal();
+    initFaq();
+    initBackTop();
+    initWhatsApp();
+    initYear();
+    initForms();
+    initProjects();
+  }
+
+  if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+})();

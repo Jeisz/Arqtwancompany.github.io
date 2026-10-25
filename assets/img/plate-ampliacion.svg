@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Ilustración de referencia: ampliación con segundo nivel">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071C27"/>
+      <stop offset="0.55" stop-color="#0A2531"/>
+      <stop offset="1" stop-color="#05141D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.74" cy="0.16" r="0.8">
+      <stop offset="0" stop-color="#28AEE8" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#28AEE8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#9CC6D8" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#28AEE8" stroke-opacity="0.4" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatchWarm" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#D9B57A" stroke-opacity="0.45" stroke-width="1"/>
+    </pattern>
+    <clipPath id="sheet">
+      <rect x="40" y="40" width="1120" height="820"/>
+    </clipPath>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#grid)"/>
+  <rect width="1200" height="900" fill="url(#glow)"/>
+  <g clip-path="url(#sheet)">
+  <g stroke-linejoin="round"><path d="M600 440 L942 638 L600 835 L258 638 Z" fill="#28AEE8" fill-opacity="0.06" stroke="#46707F" stroke-width="1.2"/><line x1="534.2" y1="478.0" x2="876.4" y2="675.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="665.8" y1="478.0" x2="323.6" y2="675.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="468.4" y1="516.0" x2="810.6" y2="713.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="731.6" y1="516.0" x2="389.4" y2="713.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="402.6" y1="554.0" x2="744.8" y2="751.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="797.4" y1="554.0" x2="455.2" y2="751.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="336.7" y1="592.0" x2="679.0" y2="789.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="863.3" y1="592.0" x2="521.0" y2="789.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="270.9" y1="630.0" x2="613.2" y2="827.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><line x1="929.1" y1="630.0" x2="586.8" y2="827.6" stroke="#2F5361" stroke-opacity="0.28" stroke-width="1"/><polygon points="600.0,440.0 863.3,592.0 665.8,706.0 402.6,554.0" fill="#0B2835" stroke="#46707F" stroke-width="1.6" fill-opacity="0.95"/><polygon points="600.0,516.0 863.3,668.0 863.3,592.0 600.0,440.0" fill="#0B2835" stroke="#46707F" stroke-width="1.6" fill-opacity="0.95"/><polygon points="863.3,668.0 665.8,782.0 665.8,706.0 863.3,592.0" fill="#0B2835" stroke="#46707F" stroke-width="1.6" fill-opacity="0.95"/><polygon points="600.0,364.0 863.3,516.0 665.8,630.0 402.6,478.0" fill="#28AEE8" fill-opacity="0.10" stroke="#28AEE8" stroke-width="1.8"/><polygon points="600.0,440.0 863.3,592.0 863.3,516.0 600.0,364.0" fill="#28AEE8" fill-opacity="0.10" stroke="#28AEE8" stroke-width="1.8"/><polygon points="863.3,592.0 665.8,706.0 665.8,630.0 863.3,516.0" fill="#28AEE8" fill-opacity="0.10" stroke="#28AEE8" stroke-width="1.8"/><polygon points="600.0,379.2 836.9,516.0 665.8,614.8 428.9,478.0" fill="none" stroke="#28AEE8" stroke-width="1" stroke-dasharray="7 5"/><polygon points="600.0,379.2 836.9,516.0 836.9,516.0 600.0,379.2" fill="none" stroke="#28AEE8" stroke-width="1" stroke-dasharray="7 5"/><polygon points="836.9,516.0 665.8,614.8 665.8,614.8 836.9,516.0" fill="none" stroke="#28AEE8" stroke-width="1" stroke-dasharray="7 5"/><polygon points="646.1,451.4 646.1,402.0 698.7,432.4 698.7,481.8" fill="#D9B57A" fill-opacity="0.18" stroke="#D9B57A" stroke-opacity="0.55" stroke-width="1"/><polygon points="718.5,493.2 718.5,443.8 771.1,474.2 771.1,523.6" fill="#D9B57A" fill-opacity="0.18" stroke="#D9B57A" stroke-opacity="0.55" stroke-width="1"/><polygon points="790.9,535.0 790.9,485.6 843.5,516.0 843.5,565.4" fill="#D9B57A" fill-opacity="0.18" stroke="#D9B57A" stroke-opacity="0.55" stroke-width="1"/><polygon points="481.5,675.6 481.5,616.3 540.8,650.5 540.8,709.8" fill="#28AEE8" fill-opacity="0.14" stroke="#28AEE8" stroke-width="1.4" stroke-opacity="0.7"/><line x1="886.3" y1="529.3" x2="886.3" y2="605.3" stroke="#28AEE8" stroke-width="1" stroke-opacity="0.75"/><text x="902" y="571" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#28AEE8" fill-opacity="0.75" letter-spacing="2">NUEVO NIVEL</text>  </g>
+  </g>
+  <g fill="none" stroke="#46707F" stroke-opacity="0.55" stroke-width="1">
+    <rect x="40" y="40" width="1120" height="820"/>
+    <path d="M40 700 V760 M40 40 V100 M1160 700 V760 M1160 40 V100"/>
+  </g>
+  <g stroke="#28AEE8" stroke-opacity="0.8" stroke-width="1.2">
+    <path d="M24 40 H40 M40 24 V40 M1160 24 V40 M1160 40 H1176 M24 860 H40 M40 860 V876 M1160 860 V876 M1160 860 H1176"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="11" letter-spacing="4.5" fill="#8FB3C2" fill-opacity="0.65">
+    <line x1="64" y1="836" x2="94" y2="836" stroke="#28AEE8" stroke-width="2"/>
+    <text x="108" y="840">ARQTWAN · REFERENCIA GRÁFICA</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="3.5" fill="#8FB3C2" fill-opacity="0.4">
+    <text x="1136" y="840" text-anchor="end">IMAGEN ILUSTRATIVA · NO CORRESPONDE A UN PROYECTO EJECUTADO</text>
+  </g>
+</svg>
