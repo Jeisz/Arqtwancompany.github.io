@@ -64,6 +64,25 @@
     on(window, "scroll", onScroll, { passive: true });
   }
 
+  /* ---------- Video de portada (solo escritorio) ----------
+     El video no se descarga hasta que se pide. En movil y con
+     prefers-reduced-motion se muestra solo el poster: mejor LCP
+     y menos consumo de datos. */
+  function initHeroVideo() {
+    var video = $("[data-hero-video]");
+    if (!video) return;
+    if (reduceMotion) return;
+    if (!window.matchMedia || !window.matchMedia("(min-width: 761px)").matches) return;
+
+    video.setAttribute("autoplay", "");
+    var started = video.play();
+    if (started && typeof started.catch === "function") {
+      started.catch(function () {
+        /* Si el navegador bloquea la reproduccion, queda el poster. */
+      });
+    }
+  }
+
   /* ---------- Navegacion ---------- */
   function initNav() {
     var toggle = $("[data-nav-toggle]");
@@ -359,6 +378,7 @@
   /* ---------- Arranque ---------- */
   function init() {
     initHeader();
+    initHeroVideo();
     initNav();
     initSubmenus();
     initReveal();

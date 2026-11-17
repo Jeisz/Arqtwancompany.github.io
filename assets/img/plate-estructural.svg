@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Ilustración de referencia: planta estructural con ejes, vigas y detalle de sección">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071C27"/>
+      <stop offset="0.55" stop-color="#0A2531"/>
+      <stop offset="1" stop-color="#05141D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.26" cy="0.2" r="0.8">
+      <stop offset="0" stop-color="#28AEE8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#28AEE8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#9CC6D8" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#28AEE8" stroke-opacity="0.35" stroke-width="1"/>
+    </pattern>
+    <clipPath id="sheet">
+      <rect x="40" y="40" width="1120" height="820"/>
+    </clipPath>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#grid)"/>
+  <rect width="1200" height="900" fill="url(#glow)"/>
+  <g clip-path="url(#sheet)">
+
+  <g stroke="#2F5361" stroke-width="1.2" stroke-dasharray="18 6 3 6">
+    <path d="M260 220 H860 M260 440 H860 M260 660 H860"/>
+    <path d="M260 220 V660 M460 220 V660 M660 220 V660 M860 220 V660"/>
+  </g>
+
+  <g fill="#0B2835" stroke="#28AEE8" stroke-opacity="0.75" stroke-width="1.6">
+    <rect x="248" y="208" width="24" height="24"/>
+    <rect x="448" y="208" width="24" height="24"/>
+    <rect x="648" y="208" width="24" height="24"/>
+    <rect x="848" y="208" width="24" height="24"/>
+    <rect x="248" y="428" width="24" height="24"/>
+    <rect x="448" y="428" width="24" height="24"/>
+    <rect x="648" y="428" width="24" height="24"/>
+    <rect x="848" y="428" width="24" height="24"/>
+    <rect x="248" y="648" width="24" height="24"/>
+    <rect x="448" y="648" width="24" height="24"/>
+    <rect x="648" y="648" width="24" height="24"/>
+    <rect x="848" y="648" width="24" height="24"/>
+  </g>
+
+  <g stroke="#DCE9EE" stroke-opacity="0.18" stroke-width="1">
+    <path d="M262 220 H448 M472 220 H648 M672 220 H848"/>
+    <path d="M262 440 H448 M472 440 H648 M672 440 H848"/>
+    <path d="M262 660 H448 M472 660 H648 M672 660 H848"/>
+    <path d="M260 232 V428 M260 452 V648 M460 232 V428 M460 452 V648"/>
+    <path d="M660 232 V428 M660 452 V648 M860 232 V428 M860 452 V648"/>
+  </g>
+
+  <g stroke="#28AEE8" stroke-opacity="0.55" stroke-width="1">
+    <path d="M260 160 H860 M260 154 V166 M860 154 V166 M460 160 V178 M660 160 V178"/>
+    <path d="M206 220 V660 M200 220 H212 M200 660 H212 M206 440 H232"/>
+  </g>
+
+  <g font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#8FB3C2" fill-opacity="0.7" letter-spacing="2">
+    <text x="560" y="196" text-anchor="middle">VANOS DE 2.00 m</text>
+  </g>
+
+
+  <g fill="none" stroke="#46707F" stroke-width="1.2">
+    <circle cx="260" cy="130" r="18"/>
+    <circle cx="460" cy="130" r="18"/>
+    <circle cx="660" cy="130" r="18"/>
+    <circle cx="860" cy="130" r="18"/>
+    <circle cx="180" cy="220" r="18"/>
+    <circle cx="180" cy="440" r="18"/>
+    <circle cx="180" cy="660" r="18"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#DCE9EE" fill-opacity="0.7" text-anchor="middle">
+    <text x="260" y="135">A</text>
+    <text x="460" y="135">B</text>
+    <text x="660" y="135">C</text>
+    <text x="860" y="135">D</text>
+    <text x="180" y="225">1</text>
+    <text x="180" y="445">2</text>
+    <text x="180" y="665">3</text>
+  </g>
+
+  <g transform="translate(960 250)">
+    <rect x="0" y="0" width="170" height="110" fill="#0B2835" stroke="#46707F" stroke-width="1.2"/>
+    <rect x="0" y="0" width="170" height="110" fill="url(#hatch)" stroke="none"/>
+    <rect x="12" y="12" width="146" height="86" fill="none" stroke="#28AEE8" stroke-opacity="0.55" stroke-width="1.4"/>
+    <circle cx="26" cy="26" r="4" fill="#DCE9EE" fill-opacity="0.6"/>
+    <circle cx="85" cy="26" r="4" fill="#DCE9EE" fill-opacity="0.6"/>
+    <circle cx="144" cy="26" r="4" fill="#DCE9EE" fill-opacity="0.6"/>
+    <circle cx="26" cy="84" r="4" fill="#DCE9EE" fill-opacity="0.6"/>
+    <circle cx="85" cy="84" r="4" fill="#DCE9EE" fill-opacity="0.6"/>
+    <circle cx="144" cy="84" r="4" fill="#DCE9EE" fill-opacity="0.6"/>
+    <path d="M85 45 V65" stroke="#DCE9EE" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="M0 126 H170 M0 120 V132 M170 120 V132" stroke="#28AEE8" stroke-opacity="0.5" stroke-width="1" fill="none"/>
+    <text x="85" y="150" font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="2.5" fill="#8FB3C2" fill-opacity="0.6" text-anchor="middle">SECCIÓN VIGA</text>
+    <text x="85" y="170" font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="2.5" fill="#8FB3C2" fill-opacity="0.4" text-anchor="middle">DETALLE DE REFUERZO</text>
+  </g>
+
+  <g transform="translate(960 470)">
+    <path d="M40 0 V70" stroke="#28AEE8" stroke-opacity="0.6" stroke-width="1.4"/>
+    <path d="M28 58 L40 76 L52 58" fill="none" stroke="#28AEE8" stroke-opacity="0.6" stroke-width="1.4"/>
+  </g>
+
+  <g transform="translate(1010 590)">
+    <path d="M0 0 H104 L138 34 V204 H0 Z" fill="#0B2835" stroke="#46707F" stroke-width="1.2"/>
+    <path d="M104 0 V34 H138" fill="none" stroke="#46707F" stroke-width="1.2"/>
+    <g stroke="#DCE9EE" stroke-opacity="0.3" stroke-width="2">
+      <path d="M20 62 H110 M20 92 H118 M20 122 H96 M20 152 H110"/>
+    </g>
+    <path d="M20 176 H58" stroke="#28AEE8" stroke-width="3" stroke-opacity="0.8"/>
+  </g>
+  </g>
+
+  <g fill="none" stroke="#46707F" stroke-opacity="0.55" stroke-width="1">
+    <rect x="40" y="40" width="1120" height="820"/>
+    <path d="M40 700 V760 M40 40 V100 M1160 700 V760 M1160 40 V100"/>
+  </g>
+  <g stroke="#28AEE8" stroke-opacity="0.8" stroke-width="1.2">
+    <path d="M24 40 H40 M40 24 V40 M1160 24 V40 M1160 40 H1176 M24 860 H40 M40 860 V876 M1160 860 V876 M1160 860 H1176"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="11" letter-spacing="4.5" fill="#8FB3C2" fill-opacity="0.65">
+    <line x1="64" y1="836" x2="94" y2="836" stroke="#28AEE8" stroke-width="2"/>
+    <text x="108" y="840">ARQTWAN · REFERENCIA GRÁFICA</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="3.5" fill="#8FB3C2" fill-opacity="0.4">
+    <text x="1136" y="840" text-anchor="end">IMAGEN ILUSTRATIVA · NO CORRESPONDE A UN PROYECTO EJECUTADO</text>
+  </g>
+</svg>

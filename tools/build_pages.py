@@ -88,15 +88,26 @@ def head(ctx):
     image = abs_url(site, ctx.get("image") or site.get("ogImage", "assets/img/og-arqtwan.jpg"))
     title = ctx["title"]
     desc = ctx["description"]
+    image_width = ctx.get("image_width", 1200)
+    image_height = ctx.get("image_height", 630)
+    preload = ctx.get("preload_image")
+    preload_html = (
+        '<link rel="preload" as="image" href="{rel}{src}" fetchpriority="high">'.format(
+            rel=rel, src=esc(preload)
+        )
+        if preload
+        else ""
+    )
 
     return """<!DOCTYPE html>
-<html lang="es" class="no-js">
+<html lang="es-CO" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{url}">
+{preload}
 <meta name="google-site-verification" content="o0HdO8HkEtZiGqGIS2KYd91j7IE8fGOWgMSSIqJjJbg">
 <meta name="robots" content="{robots}">
 <meta name="theme-color" content="#071C27">
@@ -108,6 +119,9 @@ def head(ctx):
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{image}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="{image_width}">
+<meta property="og:image:height" content="{image_height}">
 <meta property="og:image:alt" content="Arqtwan · arquitectura, ingeniería y construcción">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
@@ -128,6 +142,9 @@ def head(ctx):
         desc=esc(desc),
         url=esc(url),
         image=esc(image),
+        image_width=image_width,
+        image_height=image_height,
+        preload=preload_html,
         og_type=ctx.get("og_type", "website"),
         robots=ctx.get("robots", "index, follow, max-image-preview:large"),
         rel=rel,
@@ -136,7 +153,7 @@ def head(ctx):
 
 def brand_mark(rel, size=38):
     return (
-        '<img class="brand-mark" src="{rel}assets/icons/icon-512.png" alt="" '
+        '<img class="brand-mark" src="{rel}assets/icons/brand-mark-96.png" alt="" '
         'width="{s}" height="{s}" decoding="async">'
     ).format(rel=rel, s=size)
 
@@ -207,6 +224,12 @@ def footer(ctx):
         )
         for s in ctx["services"]
     )
+    zone_links = "\n".join(
+        '          <li><a href="{rel}zonas/{slug}.html">{name}</a></li>'.format(
+            rel=rel, slug=z["slug"], name=esc(z["name"])
+        )
+        for z in ctx.get("zones") or []
+    )
 
     return """<footer class="site-footer">
   <div class="container">
@@ -230,6 +253,7 @@ def footer(ctx):
           <li><a href="{rel}index.html">Inicio</a></li>
           <li><a href="{rel}proyectos.html">Proyectos</a></li>
           <li><a href="{rel}contacto.html">Contacto</a></li>
+{zonas}
           <li><a href="{rel}privacidad.html">Política de privacidad</a></li>
         </ul>
       </div>
@@ -255,6 +279,7 @@ def footer(ctx):
         rel=rel,
         mark=brand_mark(rel, 40),
         services=service_links,
+        zonas=zone_links,
         wa=esc(href),
         phone=esc(phone),
         hours=esc(site.get("hours", "")),
@@ -303,11 +328,11 @@ def shorten(text, limit=90):
     return cut.rstrip(" ,;:.-") + "…"
 
 
-def stats_block(site):
+def stats_block(site, service_count=7):
     years = site.get("experienceYears", "10")
     items = [
         (years + " años", "de experiencia acumulada entre diseño, trámites y obra."),
-        ("7 servicios", "integrados: del expediente de licencia a la entrega de obra."),
+        ("{0} servicios".format(service_count), "integrados: del expediente de licencia a la entrega de obra."),
         ("1 solo equipo", "arquitectura, ingeniería y construcción coordinadas."),
         ("Colombia", "atención de proyectos residenciales y comerciales."),
     ]
@@ -373,7 +398,7 @@ def hero_home(ctx):
     )
     return """<section class="hero" aria-labelledby="hero-title">
   <div class="hero__media">
-    <video autoplay muted loop playsinline preload="metadata" poster="{rel}assets/img/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+    <video class="hero__video" muted loop playsinline preload="none" poster="{rel}assets/img/hero-poster.jpg" aria-hidden="true" tabindex="-1" data-hero-video>
       <source src="{rel}assets/video/hero.mp4" type="video/mp4">
     </video>
   </div>
@@ -403,7 +428,7 @@ def hero_home(ctx):
         years=years,
         area=esc(site.get("serviceArea", "Atención en Colombia")),
         hours=esc(site.get("hours", "")),
-        stats=stats_block(site),
+        stats=stats_block(site, len(ctx["services"])),
     )
 
 
@@ -648,6 +673,7 @@ def home_body(ctx):
     parts = [
         hero_home(ctx),
         services_section(ctx),
+        zones_section(ctx),
         split_section(ctx),
         process_section(ctx),
         faq_section(ctx, HOME_FAQ),
@@ -729,6 +755,188 @@ def service_index(ctx, current=None, title="Servicios relacionados"):
     </div>
   </div>
 </section>""".format(title=esc(title), rows="\n".join(rows))
+
+
+def zones_section(ctx, lede=None, title="Dónde atendemos", service=None):
+    """Bloque de cobertura local: enlaza las paginas de zona desde inicio y servicios."""
+    zones = ctx.get("zones") or []
+    if not zones:
+        return ""
+    rel = ctx["rel"]
+    if lede is None:
+        if service:
+            lede = (
+                "Revisamos casos de {0} en predios de Bosa y Soacha, y atendemos proyectos "
+                "en Bogotá y otras zonas del país según la logística de cada obra.".format(
+                    str(service).lower()
+                )
+            )
+        else:
+            lede = (
+                "Priorizamos Bosa (Bogotá D.C.) y Soacha (Cundinamarca). Si tu predio está "
+                "en otra zona de Bogotá o del país, escríbenos y confirmamos la viabilidad "
+                "de acompañarte."
+            )
+    rows = "\n".join(
+        '      <a class="service-index__row" href="{rel}zonas/{slug}.html">'
+        "<span>{idx:02d}</span><div><strong>{name}</strong>"
+        "<small>{short}</small></div></a>".format(
+            rel=rel,
+            slug=z["slug"],
+            idx=i,
+            name=esc(z["name"]),
+            short=esc(shorten(z.get("summary", ""), 92)),
+        )
+        for i, z in enumerate(zones, start=1)
+    )
+    return """<section class="section section--paper" aria-labelledby="zonas-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Cobertura</p>
+      <h2 id="zonas-title">{title}</h2>
+      <p class="section-lede">{lede}</p>
+    </div>
+    <div class="service-index">
+{rows}
+    </div>
+  </div>
+</section>""".format(title=esc(title), lede=esc(lede), rows=rows)
+
+
+def zone_block_section(z, index, block):
+    sid = "zona-{0}-{1}".format(z["slug"], index)
+    items = block.get("items") or []
+    list_html = ""
+    if items:
+        list_html = '\n        <ul class="checklist mt-2">\n{0}\n        </ul>'.format(
+            "\n".join("          <li>{0}</li>".format(esc(i)) for i in items)
+        )
+    cls = "section section--paper" if index % 2 == 0 else "section"
+    return """<section class="{cls}" aria-labelledby="{sid}">
+  <div class="container container--narrow">
+    <div class="prose reveal">
+      <h2 id="{sid}">{title}</h2>
+      <p>{text}</p>{list_html}
+    </div>
+  </div>
+</section>""".format(
+        cls=cls,
+        sid=sid,
+        title=esc(block["title"]),
+        text=esc(block.get("text", "")),
+        list_html=list_html,
+    )
+
+
+def zone_related(ctx, z):
+    rel = ctx["rel"]
+    lookup = {s["slug"]: s for s in ctx["services"]}
+    rows = []
+    for i, slug in enumerate(z.get("links") or [], start=1):
+        s = lookup.get(slug)
+        if not s:
+            continue
+        rows.append(
+            '      <a class="service-index__row" href="{rel}servicios/{slug}.html">'
+            "<span>{idx:02d}</span><div><strong>{name}</strong>"
+            "<small>{short}</small></div></a>".format(
+                rel=rel,
+                slug=s["slug"],
+                idx=i,
+                name=esc(s["name"]),
+                short=esc(shorten(s.get("short", ""), 92)),
+            )
+        )
+    zmap = {x["slug"]: x for x in ctx.get("zones") or []}
+    neighbours = [zmap[key] for key in (z.get("nearby") or []) if key in zmap]
+    nearby = ""
+    if neighbours:
+        nearby = '    <p class="mt-2">Zona vecina con normativa propia: {0}</p>'.format(
+            ", ".join(
+                '<a href="{rel}zonas/{slug}.html">{name}</a>'.format(
+                    rel=rel, slug=n["slug"], name=esc(n["name"])
+                )
+                for n in neighbours
+            )
+        )
+    return """<section class="section" aria-labelledby="zona-servicios-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Servicios relacionados</p>
+      <h2 id="zona-servicios-title">Qué puedes contratar en {name}</h2>
+    </div>
+    <div class="service-index">
+{rows}
+    </div>
+{nearby}
+  </div>
+</section>""".format(name=esc(z["name"]), rows="\n".join(rows), nearby=nearby)
+
+
+def zone_body(ctx, z):
+    rel = ctx["rel"]
+    name = z["name"]
+    actions = (
+        '          <a class="btn btn--primary" href="{rel}contacto.html">Cotizar en {name}</a>\n'
+        '          <a class="btn btn--ghost" data-wa="{msg}" data-wa-origen="zona-{slug}" '
+        'href="#">Preguntar por WhatsApp</a>'
+    ).format(rel=rel, name=esc(name), msg=esc(z.get("waMessage", "")), slug=esc(z["slug"]))
+
+    hero = page_hero(
+        ctx,
+        [("Inicio", rel + "index.html"), (name, "")],
+        z.get("kicker", "Cobertura"),
+        z["h1"],
+        z.get("lede", ""),
+        media={"src": z.get("plate", ""), "alt": z.get("alt", "")},
+        actions=actions,
+    )
+
+    paragraphs = "\n".join(
+        "      <p>{0}</p>".format(esc(p)) for p in z.get("intro") or []
+    )
+    intro = """<section class="section" aria-labelledby="zona-contexto-title">
+  <div class="container container--narrow">
+    <div class="prose reveal">
+      <p class="eyebrow">Contexto local</p>
+      <h2 id="zona-contexto-title">{title}</h2>
+{paragraphs}
+      <p class="plate-note">{note}</p>
+    </div>
+  </div>
+</section>""".format(
+        title=esc(z.get("introTitle") or "Antes de proyectar en {0}".format(name)),
+        paragraphs=paragraphs,
+        note=esc(z.get("note", "")),
+    )
+
+    blocks = "\n\n".join(
+        zone_block_section(z, i, block)
+        for i, block in enumerate(z.get("blocks") or [], start=1)
+    )
+
+    parts = [hero, intro]
+    if blocks:
+        parts.append(blocks)
+    parts.append(zone_related(ctx, z))
+    if z.get("faq"):
+        parts.append(
+            faq_section(
+                ctx,
+                z["faq"],
+                "Preguntas sobre proyectos en " + name,
+                lede="Dudas concretas de quienes construyen, amplían o tramitan en la zona.",
+            )
+        )
+    parts.append(
+        cta_band(
+            ctx,
+            "¿Tu predio está en {0}?".format(name),
+            "Envíanos la dirección exacta, el estado del predio y qué quieres hacer. "
+            "Te decimos qué se puede tramitar y qué revisar primero.",
+        )
+    )
+    return "\n\n".join(parts)
 
 
 def service_body(ctx, s):
@@ -817,6 +1025,7 @@ def service_body(ctx, s):
             process_section(ctx, s.get("steps", []), "Cómo se desarrolla"),
             faq_section(ctx, faq_items, "Preguntas sobre " + name.lower().rstrip(".")),
             service_index(ctx, current=s["slug"]),
+            zones_section(ctx, service=name),
             cta_band(
                 ctx,
                 "¿Necesitas {}?".format(name.lower()),
@@ -1093,23 +1302,46 @@ def service_faq(s):
     return items
 
 
-def org_node(site):
+def org_node(site, services=None):
     base = (site.get("url") or "https://arqtwan.com").rstrip("/")
-    return {
+    node = {
         "@type": ["ProfessionalService", "LocalBusiness"],
         "@id": base + "/#organization",
         "name": site.get("name", "Arqtwan"),
         "url": base + "/",
-        "logo": base + "/assets/icons/icon-512.png",
-        "image": base + "/" + site.get("ogImage", "assets/img/og-arqtwan.jpg"),
+        "logo": {
+            "@type": "ImageObject",
+            "url": base + "/assets/icons/icon-512.png",
+            "width": 512,
+            "height": 512,
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": base + "/" + site.get("ogImage", "assets/img/og-arqtwan.jpg"),
+            "width": 1200,
+            "height": 630,
+        },
         "telephone": site.get("whatsappDisplay", ""),
         "description": (
             "Estudio de arquitectura e ingeniería en Colombia: licencias de construcción, "
             "diseño arquitectónico, diseño estructural, remodelaciones, ampliaciones, "
             "locales comerciales y administración de obra."
         ),
-        "areaServed": {"@type": "Country", "name": "Colombia"},
+        "areaServed": [
+            {"@type": "Country", "name": "Colombia"},
+            {"@type": "City", "name": "Bogotá"},
+            {"@type": "AdministrativeArea", "name": "Bosa, Bogotá D.C."},
+            {"@type": "City", "name": "Soacha"},
+            {"@type": "AdministrativeArea", "name": "Cundinamarca"},
+        ],
         "address": {"@type": "PostalAddress", "addressCountry": "CO"},
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": site.get("whatsappDisplay", ""),
+            "contactType": "customer service",
+            "areaServed": "CO",
+            "availableLanguage": ["es"],
+        },
         "openingHoursSpecification": [
             {
                 "@type": "OpeningHoursSpecification",
@@ -1126,7 +1358,39 @@ def org_node(site):
         ],
         "priceRange": "$$",
         "knowsLanguage": "es-CO",
+        "knowsAbout": [
+            "Licencias de construcción",
+            "Diseño arquitectónico",
+            "Diseño estructural",
+            "Planos arquitectónicos",
+            "Reconocimiento de edificación",
+            "Legalización de viviendas",
+            "Remodelación",
+            "Ampliaciones",
+            "Adecuaciones comerciales",
+            "Administración de obra",
+            "Presupuestos de obra",
+        ],
     }
+    if site.get("tagline"):
+        node["slogan"] = site["tagline"]
+    if services:
+        node["hasOfferCatalog"] = {
+            "@type": "OfferCatalog",
+            "name": "Servicios de Arqtwan",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": s["name"],
+                        "url": base + "/servicios/" + s["slug"] + ".html",
+                    },
+                }
+                for s in services
+            ],
+        }
+    return node
 
 
 def website_node(site):
@@ -1180,7 +1444,11 @@ def service_node(site, s):
         "serviceType": s["name"],
         "description": s.get("summary", s.get("short", "")),
         "url": base + "/servicios/" + s["slug"] + ".html",
-        "areaServed": {"@type": "Country", "name": "Colombia"},
+        "areaServed": [
+            {"@type": "Country", "name": "Colombia"},
+            {"@type": "City", "name": "Bogotá"},
+            {"@type": "City", "name": "Soacha"},
+        ],
         "provider": {"@id": base + "/#organization"},
         "inLanguage": "es-CO",
     }
@@ -1207,13 +1475,14 @@ def fecha_larga(d):
 
 
 def make_ctx(data, path, current, title, description, jsonld=None, image=None,
-             og_type="website", robots=None):
+             og_type="website", robots=None, preload_image=None):
     import datetime
 
     today = datetime.date.today()
     return {
         "site": data["site"],
         "services": data["services"],
+        "zones": data.get("zones", []),
         "projects": data.get("projects", []),
         "path": path,
         "rel": "../" * path.count("/"),
@@ -1222,6 +1491,7 @@ def make_ctx(data, path, current, title, description, jsonld=None, image=None,
         "description": description,
         "jsonld": jsonld,
         "image": image,
+        "preload_image": preload_image,
         "og_type": og_type,
         "robots": robots or "index, follow, max-image-preview:large",
         "updated": fecha_larga(today),
@@ -1246,14 +1516,14 @@ def build():
 
     home_jsonld = {
         "@context": "https://schema.org",
-        "@graph": [org_node(site), website_node(site), faq_node(HOME_FAQ)],
+        "@graph": [org_node(site, services), website_node(site), faq_node(HOME_FAQ)],
     }
     home_title, home_description = seo_for(
         data,
         "home",
-        "Arqtwan | Licencias, arquitectura y construcción en Colombia",
-        "Diseño arquitectónico, licencias de construcción, ingeniería y obra en Colombia. "
-        "Un solo equipo para tramitar, diseñar y construir con criterio técnico.",
+        "Licencias y arquitectura en Bogotá, Bosa y Soacha | Arqtwan",
+        "Licencias de construcción, diseño arquitectónico y estructural, planos y obra en "
+        "Bogotá, Bosa y Soacha. Un solo equipo técnico para tu proyecto.",
     )
     ctx = make_ctx(
         data,
@@ -1262,6 +1532,7 @@ def build():
         home_title,
         home_description,
         jsonld=home_jsonld,
+        preload_image="assets/img/hero-poster.jpg",
     )
     write("index.html", page(ctx, home_body(ctx)))
 
@@ -1302,6 +1573,37 @@ def build():
             jsonld=jsonld,
         )
         write(path, page(ctx, service_body(ctx, s)))
+
+    for z in data.get("zones", []):
+        path = "zonas/" + z["slug"] + ".html"
+        crumbs = [("Inicio", base + "/"), (z["name"], base + "/" + path)]
+        zone_title, zone_description = seo_for(
+            data, "zonas", z["metaTitle"], z["metaDescription"], slug=z["slug"]
+        )
+        graph = [
+            {
+                "@type": "WebPage",
+                "@id": base + "/" + path + "#page",
+                "url": base + "/" + path,
+                "name": zone_title,
+                "description": zone_description,
+                "inLanguage": "es-CO",
+                "isPartOf": {"@id": base + "/#website"},
+                "about": {"@id": base + "/#organization"},
+            },
+            breadcrumb_node(site, crumbs),
+        ]
+        if z.get("faq"):
+            graph.append(faq_node(z["faq"]))
+        ctx = make_ctx(
+            data,
+            path,
+            "zonas",
+            zone_title,
+            zone_description,
+            jsonld={"@context": "https://schema.org", "@graph": graph},
+        )
+        write(path, page(ctx, zone_body(ctx, z)))
 
     proyectos_title, proyectos_description = seo_for(
         data,
@@ -1415,9 +1717,12 @@ def build():
         "User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {0}/sitemap.xml\n".format(base),
     )
 
-    urls = ["", "proyectos.html", "contacto.html", "privacidad.html"] + [
-        "servicios/" + s["slug"] + ".html" for s in services
-    ]
+    urls = (
+        [""]
+        + ["zonas/" + z["slug"] + ".html" for z in data.get("zones", [])]
+        + ["proyectos.html", "contacto.html", "privacidad.html"]
+        + ["servicios/" + s["slug"] + ".html" for s in services]
+    )
     entries = "\n".join(
         "  <url>\n    <loc>{0}/{1}</loc>\n    <lastmod>{2}</lastmod>\n"
         "    <changefreq>{3}</changefreq>\n    <priority>{4}</priority>\n  </url>".format(
@@ -1425,7 +1730,13 @@ def build():
             u,
             ctx["updated_iso"],
             "weekly" if u in ("", "proyectos.html") else "monthly",
-            "1.0" if u == "" else ("0.9" if u.startswith("servicios/") else "0.7"),
+            "1.0"
+            if u == ""
+            else (
+                "0.9"
+                if u.startswith("servicios/")
+                else ("0.8" if u.startswith("zonas/") else "0.7")
+            ),
         )
         for u in urls
     )

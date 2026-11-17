@@ -78,6 +78,21 @@ def validate(data):
     for project in data["projects"]:
         if not isinstance(project, dict) or not project.get("title"):
             raise ValueError("Cada proyecto necesita un titulo.")
+    zones = data.get("zones")
+    if zones is not None:
+        if not isinstance(zones, list):
+            raise ValueError("zones debe ser una lista.")
+        zone_slugs = set()
+        for zone in zones:
+            if not isinstance(zone, dict) or not zone.get("slug") or not zone.get("name"):
+                raise ValueError("Cada zona necesita 'slug' y 'name'.")
+            if not zone.get("h1") or not zone.get("metaTitle"):
+                raise ValueError(
+                    "La zona {0} necesita 'h1' y 'metaTitle'.".format(zone["slug"])
+                )
+            if zone["slug"] in zone_slugs:
+                raise ValueError("Slug de zona repetido: {0}".format(zone["slug"]))
+            zone_slugs.add(zone["slug"])
 
 
 def write_data(header, data):
@@ -200,9 +215,9 @@ def seo_state(data):
         None,
         "Inicio",
         "index.html",
-        "Arqtwan | Licencias, arquitectura y construcción en Colombia",
-        "Diseño arquitectónico, licencias de construcción, ingeniería y obra en Colombia. "
-        "Un solo equipo para tramitar, diseñar y construir con criterio técnico.",
+        "Licencias y arquitectura en Bogotá, Bosa y Soacha | Arqtwan",
+        "Licencias de construcción, diseño arquitectónico y estructural, planos y obra en "
+        "Bogotá, Bosa y Soacha. Un solo equipo técnico para tu proyecto.",
     )
     for service in data["services"]:
         default_description = bp.shorten(
@@ -218,6 +233,15 @@ def seo_state(data):
             "servicios/{0}.html".format(service["slug"]),
             "{0} en Colombia | Arqtwan".format(service["name"]),
             default_description,
+        )
+    for zone in data.get("zones") or []:
+        add(
+            "zonas",
+            zone["slug"],
+            "Zona · {0}".format(zone["name"]),
+            "zonas/{0}.html".format(zone["slug"]),
+            zone["metaTitle"],
+            zone["metaDescription"],
         )
     add(
         "proyectos",
